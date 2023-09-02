@@ -1,9 +1,10 @@
 ﻿$default_pass_for_users   = "Password1"
 $names_of_users_list = Get-Content .\names.txt
 
-$password = ConvertTo-SecureString $default_pass_for_users -AsPlainText -Force
-New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
+$password = ConvertTo-SecureString $default_pass_for_users -AsPlainText -Force #This line converts the default password ($default_pass_for_users) into a secure string format, which is required for setting the password of Active Directory user accounts.
+New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false #This line creates an Active Directory Organizational Unit (OU) with the name "_USERS." 
 
+#This loop iterates through each name in the list provided by $names_of_users_list. It then creates a new Active Directory user account using the New-AdUser cmdlet with various attributes and properties.
 foreach ($n in $names_of_users_list) {
     $first_name = $n.Split(" ")[0].ToLower()
     $last_name = $n.Split(" ")[1].ToLower()
